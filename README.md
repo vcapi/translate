@@ -1,7 +1,7 @@
 # Translate
 Translate library for golang!
 
-
+![Test](https://github.com/vcapi/translate/workflows/Test/badge.svg)
 
 ### Usage
 Translate from english to chinese
