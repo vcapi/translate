@@ -1,6 +1,7 @@
 package translate
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -14,7 +15,8 @@ import (
 )
 
 const (
-	googleUrl  = "https://translate.google.com"
+	gTransUrl  = "https://translate.google.com"
+	gTransPath = "/translate_a/single"
 	urlEnvName = "GOOGLE_TRANSLATE_URL"
 
 	maxTkkDuration = 10 * time.Hour
@@ -55,7 +57,7 @@ func gtTransUrl() string {
 		transUrl = ""
 	}
 	if transUrl == "" {
-		transUrl = googleUrl
+		transUrl = gTransUrl
 	}
 	return transUrl
 }
@@ -209,12 +211,13 @@ func getToken(text string) (string, error) {
 	return token, nil
 }
 
-func Google(text, sl, tl string) (string, error) {
-	up, err := url.Parse(gtTransUrl())
+func Google(ctx context.Context, text, sl, tl string) (string, error) {
+	transUrl := gtTransUrl()
+	up, err := url.Parse(transUrl)
 	if err != nil {
 		return "", err
 	}
-	up.Path = "/translate_a/single"
+	up.Path = gTransPath
 
 	params := make(url.Values)
 	params.Set("sl", sl)

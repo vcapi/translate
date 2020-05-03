@@ -1,6 +1,9 @@
 package translate
 
-import "testing"
+import (
+	"context"
+	"testing"
+)
 
 func TestExtractTkk(t *testing.T) {
 	cases := []struct {
@@ -115,11 +118,12 @@ func TestGoogleTranslate(t *testing.T) {
 		expect string
 	}{
 		{"en", "zh-CN", "your good", "你的好"},
-		{"zh-CN", "en", "Google翻译是结合了自然语言处理与人工智能，所以翻译结果相对令人满意，不会出现太多的生硬的尴尬的翻译。", "Google Translate is a combination of natural language processing and artificial intelligence, so the translation results are relatively satisfactory, and there will not be too many awkward and awkward translations."},
+		{"zh-CN", "en", "Google翻译是结合了自然语言处理与人工智能，所以翻译结果相对令人满意，不会出现太多的生硬的尴尬的翻译。", "Google Translate is a combination of natural language processing and artificial intelligence, so the translation results are relatively satisfactory, and there will not be too many awkward translations."},
 	}
 
+	ctx := context.TODO()
 	for _, c := range cases {
-		val, err := Google(c.input, c.sLang, c.tLang)
+		val, err := Google(ctx, c.input, c.sLang, c.tLang)
 		if err != nil {
 			t.Errorf("Google translate error: %v", err)
 			return
