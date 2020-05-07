@@ -9,6 +9,7 @@ Translate from english to chinese
 package main
 
 import (
+    "context"
     "fmt"
 
     "github.com/vcapi/translate"
@@ -18,7 +19,8 @@ func main() {
     input := "How old are you?"
     sLang := "en"
     tLang := "zh-CN"
-    val, err := translate.Google(input, sLang, tLang)
+    ctx := context.TODO()
+    val, err := translate.Google(ctx, input, sLang, tLang)
     if err != nil {
         panic(err)
     }
